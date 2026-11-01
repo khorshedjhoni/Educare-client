@@ -1,13 +1,16 @@
 import React from "react";
 import { FaCalendarAlt, FaMapMarkerAlt, FaArrowRight } from "react-icons/fa";
 import Link from "next/link";
+import Image from "next/image";
 
 const EventCard = ({ event }) => {
   return (
     <div className="bg-slate-800/50 border border-slate-700/80 rounded-2xl overflow-hidden shadow-xl hover:border-indigo-500/50 transition-all flex flex-col h-full group">
       {/* Event Thumbnail */}
       <div className="relative h-52 overflow-hidden bg-slate-900">
-        <img
+        <Image
+            width={400}
+            height={300}
           src={event.thumbnail}
           alt={event.title}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

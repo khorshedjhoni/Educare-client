@@ -8,17 +8,16 @@ const EventCard = ({ event }) => {
     <div className="bg-slate-800/50 border border-slate-700/80 rounded-2xl overflow-hidden shadow-xl hover:border-indigo-500/50 transition-all flex flex-col h-full group">
       {/* Event Thumbnail */}
       <div className="relative h-52 overflow-hidden bg-slate-900">
-        <Image
-            width={400}
-            height={300}
-          src={event.thumbnail}
-          alt={event.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-        />
-        <span className="absolute top-3 left-3 bg-indigo-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
-          {event.eventType || "Drive"}
-        </span>
-      </div>
+  <Image 
+    src={event.thumbnail} 
+    alt={event.title || "Event thumbnail"} 
+    fill
+    className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+  />
+  <span className="absolute top-3 left-3 bg-indigo-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md z-10">
+    {event.eventType || "Drive"}
+  </span>
+</div>
 
       {/* Event Body */}
       <div className="p-5 flex flex-col flex-grow space-y-3">
@@ -35,12 +34,17 @@ const EventCard = ({ event }) => {
           <div className="flex items-center gap-2">
             <FaCalendarAlt className="text-indigo-400" />
             <span>
-              {new Date(event.date).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-              })}
-            </span>
+  {(() => {
+    const rawDate = event.date || event.eventDate || event.startDate;
+    return rawDate 
+      ? new Date(rawDate).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })
+      : "Date Not Available";
+  })()}
+</span>
           </div>
           <div className="flex items-center gap-2">
             <FaMapMarkerAlt className="text-indigo-400" />

@@ -274,7 +274,7 @@ const SignInPage = () => {
         {/* Register Link */}
         <div className="mt-6 text-center text-xs text-slate-500">
 
-          Don't have an account?{" "}
+          Dont have an account?{" "}
 
           <Link
             href="/sign-up"

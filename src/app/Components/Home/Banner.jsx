@@ -34,14 +34,14 @@ const Banner = () => {
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
               <a
-                href="/events"
+                href="/upcoming-events"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-6 py-3 rounded-xl transition-all shadow-lg shadow-indigo-600/20"
               >
                 Explore Upcoming Events
                 <FaArrowRight className="w-4 h-4" />
               </a>
               <a
-                href="/register"
+                href="/sign-up"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold px-6 py-3 rounded-xl transition-all"
               >
                 Become a Volunteer

@@ -1,8 +1,48 @@
 import React from "react";
+import toast from "react-hot-toast";
 
 export default function EditEventForm({ event, onSubmit, onClose }) {
+  
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+    const title = form.title.value.trim();
+    const eventType = form.eventType.value.trim();
+    const date = form.date.value;
+    const location = form.location.value.trim();
+    const thumbnail = form.thumbnail.value.trim();
+    const description = form.description.value.trim();
+
+    if (!title || !eventType || !date || !location || !thumbnail || !description) {
+      toast.error("Please fill out all required fields.");
+      return;
+    }
+
+    
+    const selectedDate = new Date(date);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (selectedDate < today) {
+      toast.error("Event date cannot be in the past.");
+      return;
+    }
+
+    
+    try {
+      new URL(thumbnail);
+    } catch (_) {
+      toast.error("Please enter a valid image URL for the thumbnail.");
+      return;
+    }
+
+  
+    onSubmit(e);
+  };
+
   return (
-    <form onSubmit={onSubmit} className="space-y-4">
+    <form onSubmit={handleFormSubmit} className="space-y-4">
       <div>
         <label className="block text-xs font-medium text-slate-300 mb-1">
           Event Title

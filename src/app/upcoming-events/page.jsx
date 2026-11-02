@@ -1,24 +1,34 @@
-import React from "react";
+"use client";
 
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-// import EventCard from "../EventCard";
-import {  FaHandsHelping } from "react-icons/fa";
+import { FaHandsHelping } from "react-icons/fa";
 import EventCard from "../Components/EventCard";
 
-const UpcomingEventsPage = async () => {
+const UpcomingEventsPage = () => {
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    let events = [];
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/events");
+        if (res.ok) {
+          const data = await res.json();
+          setEvents(data);
+        }
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  
-    const res = await fetch("http://localhost:5000/events", {
-      cache: "no-store"
-    });
-    if (res.ok) {
-      events = await res.json();
-    }
-  
-    return (
-        <div className="min-h-screen bg-slate-900 text-slate-100 py-12 px-4 sm:px-6 lg:px-8">
+    fetchEvents();
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-slate-900 text-slate-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         
         {/* Page Header */}
@@ -35,8 +45,13 @@ const UpcomingEventsPage = async () => {
           </p>
         </div>
 
-        {/* Empty State */}
-        {events.length === 0 ? (
+        {/* Loading State */}
+        {loading ? (
+          <div className="text-center py-20 text-slate-400">
+            <p>Loading upcoming events...</p>
+          </div>
+        ) : events.length === 0 ? (
+          /* Empty State */
           <div className="text-center py-20 bg-slate-800/40 border border-slate-800 rounded-3xl max-w-xl mx-auto">
             <p className="text-slate-400 text-base mb-4">No upcoming events are scheduled right now.</p>
             <Link
@@ -50,14 +65,14 @@ const UpcomingEventsPage = async () => {
           /* Uniform Grid Layout (3 Columns) */
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {events.map((event) => (
-                         <EventCard key={event._id} event={event} />
-                       ))}
+              <EventCard key={event._id} event={event} />
+            ))}
           </div>
         )}
 
       </div>
     </div>
-    );
+  );
 };
 
 export default UpcomingEventsPage;

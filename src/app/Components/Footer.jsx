@@ -1,16 +1,25 @@
+"use client";
+
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { FaHandsHelping, FaHeart } from "react-icons/fa";
 import { FaXTwitter, FaFacebookF, FaInstagram } from "react-icons/fa6";
 
 const Footer = () => {
+  const [currentYear, setCurrentYear] = useState(2026);
+
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear());
+  }, []);
+
   return (
     <footer className="bg-slate-950 text-slate-400 border-t border-slate-800/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
-     
+        {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center justify-between pb-6 border-b border-slate-900">
           
-        
+          {/* Brand & Mission */}
           <div className="space-y-2">
             <Link href="/" className="inline-flex items-center gap-2.5">
               <div className="w-7 h-7 rounded-lg bg-indigo-600 flex items-center justify-center text-white shadow-md shadow-indigo-600/30">
@@ -25,13 +34,13 @@ const Footer = () => {
             </p>
           </div>
 
-          
+          {/* Quick Notice / Highlight */}
           <div className="text-center md:text-center text-xs text-slate-400">
             <p className="font-medium text-slate-300">Join our growing community initiative</p>
             <p className="text-[11px] text-slate-500 mt-0.5">Connecting volunteer mentors with eager learners every week.</p>
           </div>
 
-          
+          {/* Social Icons / Connect */}
           <div className="flex items-center justify-start md:justify-end gap-3">
             <span className="text-xs text-slate-400 mr-1">Follow Us:</span>
             <a 
@@ -65,9 +74,9 @@ const Footer = () => {
 
         </div>
 
-        
+        {/* Bottom Copyright Bar */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
-          <p>© {new Date().getFullYear()} EduCare. All rights reserved.</p>
+          <p>© {currentYear} EduCare. All rights reserved.</p>
           
           <p className="flex items-center gap-1 text-[11px]">
             Crafted with <FaHeart className="text-rose-500 mx-0.5" size={11} /> for community education.

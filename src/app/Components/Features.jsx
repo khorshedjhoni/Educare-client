@@ -39,10 +39,10 @@ const Features = () => {
     <section className="py-16 lg:py-24 bg-slate-900 text-slate-100 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
+        
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs sm:text-sm font-medium">
-            <span>Platform Highlights</span>
+          <div className="badge badge-primary badge-outline px-4 py-3 text-xs sm:text-sm font-medium">
+            Platform Highlights
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
             Core Features of <span className="text-indigo-400">EduCare</span>
@@ -52,28 +52,30 @@ const Features = () => {
           </p>
         </div>
 
-        {/* Feature Cards Grid (Uniform 3-Column Layout) */}
+     
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {featuresData.map((feature, index) => (
             <div
               key={index}
-              className="bg-slate-800/50 border border-slate-700/80 rounded-2xl p-6 shadow-xl hover:border-indigo-500/50 transition-all flex flex-col justify-between group"
+              className="card bg-slate-800/50 border border-slate-700/80 shadow-xl hover:border-indigo-500/50 transition-all group rounded-2xl flex flex-col justify-between"
             >
-              <div>
-                {/* Icon Box */}
-                <div className="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform shadow-inner">
-                  {feature.icon}
+              <div className="card-body p-6 flex flex-col justify-between">
+                <div>
+                  
+                  <div className="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform shadow-inner">
+                    {feature.icon}
+                  </div>
+
+                 
+                  <h3 className="card-title text-xl font-bold text-white tracking-tight mb-2 group-hover:text-indigo-400 transition">
+                    {feature.title}
+                  </h3>
+
+               
+                  <p className="text-slate-300 text-sm leading-relaxed">
+                    {feature.description}
+                  </p>
                 </div>
-
-                {/* Title */}
-                <h3 className="text-xl font-bold text-white tracking-tight mb-2 group-hover:text-indigo-400 transition">
-                  {feature.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-slate-300 text-sm leading-relaxed">
-                  {feature.description}
-                </p>
               </div>
             </div>
           ))}

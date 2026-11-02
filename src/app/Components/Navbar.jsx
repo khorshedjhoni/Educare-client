@@ -17,6 +17,7 @@ import { authClient, useSession } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 import Image from "next/image";
 import { BiBookOpen } from "react-icons/bi";
+import ThemeToggle from "./ToggleButton";
 
 const Navbar = () => {
   const router = useRouter();
@@ -83,6 +84,7 @@ const Navbar = () => {
 
         {/* Authentication Section (Desktop) */}
         <div className="hidden items-center gap-4 md:flex">
+            <ThemeToggle />
           {isPending ? (
             <div className="h-10 w-24 animate-pulse rounded-lg bg-slate-800" />
           ) : user ? (

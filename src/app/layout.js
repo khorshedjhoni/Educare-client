@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "./Components/Navbar";
 import { Toaster } from "react-hot-toast";
 import Footer from "./Components/Footer";
+import { ThemeProvider } from 'next-themes'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,10 +27,13 @@ export default function RootLayout({ children }) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased bg-slate-900 text-slate-100`}
     >
       <body className="min-h-full flex flex-col">
+        <ThemeProvider attribute="class" defaultTheme="dark">
+        
         <Toaster position="top-center" />
         <Navbar />
         {children}
         <Footer />
+        </ThemeProvider>
         </body>
          
     </html>

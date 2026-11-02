@@ -8,10 +8,10 @@ import Features from "./Components/Features";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between ">
+    <main className="flex min-h-screen flex-col w-full">
       <Banner />
       <Features />
-      <Suspense fallback={<div className="text-center py-10 text-slate-400">Loading recent events...</div>}>
+      <Suspense fallback={<div className="text-center py-20 text-slate-400">Loading recent events...</div>}>
         <RecentEvent />
       </Suspense>
       <Gallery />

@@ -21,7 +21,7 @@ export default function ManageEventsClient() {
 
   const email = session?.user?.email;
 
-  // Fetch events after session is available
+  
   useEffect(() => {
     if (isPending) return;
 
@@ -67,7 +67,7 @@ export default function ManageEventsClient() {
 
   const handleDelete = async (id) => {
     try {
-      // FIX: Retrieve token properly inside the function scope
+     
       const { data: tokenData } = await authClient.token();
       const token = tokenData?.token;
 

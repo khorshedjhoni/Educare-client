@@ -30,15 +30,15 @@ const EventContent = async({ params }) => {
         <div className="min-h-screen bg-slate-900 py-12 px-4 sm:px-6 lg:px-8 text-slate-100">
       <div className="max-w-4xl mx-auto">
         
-        {/* Back Link */}
+     
         <Link href="/upcoming-events" className="inline-flex items-center gap-2 text-indigo-400 hover:text-indigo-300 text-sm font-medium mb-8 transition">
           <FaArrowLeft size={12} /> Back to Events
         </Link>
 
-        {/* Main Content Card */}
+        
         <div className="bg-slate-800/60 border border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl">
           
-          {/* Thumbnail Banner */}
+         
           <div className="relative h-72 sm:h-96 w-full bg-slate-900">
             <Image
             width={800}
@@ -53,14 +53,14 @@ const EventContent = async({ params }) => {
             </span>
           </div>
 
-          {/* Details Body */}
+        
           <div className="p-6 sm:p-10 space-y-6">
             
             <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white">
               {event.title}
             </h1>
 
-            {/* Meta Grid */}
+            
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 py-4 border-y border-slate-700/60 text-sm text-slate-300">
               <div className="flex items-center gap-3">
                 <div className="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-400">
@@ -95,7 +95,7 @@ const EventContent = async({ params }) => {
               </div>
             </div>
 
-            {/* Description */}
+           
             <div className="space-y-3">
               <h3 className="text-lg font-bold text-white">About This Event</h3>
               <p className="text-slate-300 text-sm sm:text-base leading-relaxed whitespace-pre-line">
@@ -103,7 +103,7 @@ const EventContent = async({ params }) => {
               </p>
             </div>
 
-            {/* Join Action Section (Delegated to a Client Component for session handling) */}
+            
             <div className="pt-6 border-t border-slate-700/60 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div>
                 <p className="text-xs text-slate-400">Ready to make an impact?</p>

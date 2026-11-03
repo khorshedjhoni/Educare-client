@@ -30,7 +30,7 @@ const CreateEventPage = () => {
     setTodayDate(localDate);
   }, []);
 
-  // Form data
+ 
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -40,7 +40,7 @@ const CreateEventPage = () => {
     date: "",
   });
 
-  // Handle input changes
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -50,23 +50,23 @@ const CreateEventPage = () => {
     }));
   };
 
-  // Handle form submission
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check whether a date is selected
+    
     if (!formData.date) {
       toast.error("Please select an event date.");
       return;
     }
 
-    // Prevent selecting a past date
+    
     if (formData.date < todayDate) {
       toast.error("You cannot select a past date.");
       return;
     }
 
-    // Check user authentication
+    
     if (!session?.user?.email) {
       toast.error("You must be logged in to create an event.");
       return;
@@ -109,7 +109,7 @@ const CreateEventPage = () => {
     }
   };
 
-  // Session loading state
+ 
   if (isPending) {
     return (
       <div className="min-h-screen bg-slate-900 flex items-center justify-center text-slate-400">
@@ -118,7 +118,7 @@ const CreateEventPage = () => {
     );
   }
 
-  // Access denied for logged-out users
+
   if (!session?.user) {
     return (
       <div className="min-h-screen bg-slate-900 flex flex-col items-center justify-center text-white px-4">
@@ -157,7 +157,7 @@ const CreateEventPage = () => {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Event Title */}
+       
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
               Event Title
@@ -174,7 +174,7 @@ const CreateEventPage = () => {
             />
           </div>
 
-          {/* Event Type and Date */}
+         
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-medium text-slate-300 mb-2 flex items-center gap-2">
@@ -214,7 +214,7 @@ const CreateEventPage = () => {
             </div>
           </div>
 
-          {/* Thumbnail */}
+          
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2 flex items-center gap-2">
               <FaImage className="text-indigo-400 text-xs" />
@@ -232,7 +232,7 @@ const CreateEventPage = () => {
             />
           </div>
 
-          {/* Location */}
+        
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2 flex items-center gap-2">
               <FaMapMarkerAlt className="text-indigo-400 text-xs" />
@@ -250,7 +250,7 @@ const CreateEventPage = () => {
             />
           </div>
 
-          {/* Description */}
+        
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2 flex items-center gap-2">
               <FaAlignLeft className="text-indigo-400 text-xs" />
@@ -268,7 +268,7 @@ const CreateEventPage = () => {
             />
           </div>
 
-          {/* Submit Button */}
+         
           <button
             type="submit"
             disabled={loading || !todayDate}

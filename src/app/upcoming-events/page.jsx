@@ -31,7 +31,7 @@ const UpcomingEventsPage = () => {
     <div className="min-h-screen bg-slate-900 text-slate-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         
-        {/* Page Header */}
+      
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs sm:text-sm font-medium">
             <FaHandsHelping className="w-4 h-4" />
@@ -45,13 +45,13 @@ const UpcomingEventsPage = () => {
           </p>
         </div>
 
-        {/* Loading State */}
+        
         {loading ? (
           <div className="text-center py-20 text-slate-400">
             <p>Loading upcoming events...</p>
           </div>
         ) : events.length === 0 ? (
-          /* Empty State */
+          
           <div className="text-center py-20 bg-slate-800/40 border border-slate-800 rounded-3xl max-w-xl mx-auto">
             <p className="text-slate-400 text-base mb-4">No upcoming events are scheduled right now.</p>
             <Link
@@ -62,7 +62,7 @@ const UpcomingEventsPage = () => {
             </Link>
           </div>
         ) : (
-          /* Uniform Grid Layout (3 Columns) */
+          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {events.map((event) => (
               <EventCard key={event._id} event={event} />

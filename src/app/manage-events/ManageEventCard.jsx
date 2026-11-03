@@ -6,7 +6,7 @@ const ManageEventCard = ({ event, onEdit, onDelete }) => {
   return (
     <div className="bg-slate-800/50 border border-slate-700/80 rounded-2xl overflow-hidden shadow-xl hover:border-indigo-500/50 transition-all flex flex-col h-full group">
       
-      {/* Thumbnail */}
+     
       <div className="relative h-48 overflow-hidden bg-slate-900">
         <Image
           width={400}
@@ -20,7 +20,7 @@ const ManageEventCard = ({ event, onEdit, onDelete }) => {
         </span>
       </div>
 
-      {/* Body */}
+   
       <div className="p-5 flex flex-col flex-grow space-y-3">
         <h3 className="text-xl font-bold text-white tracking-tight line-clamp-1 group-hover:text-indigo-400 transition">
           {event.title}
@@ -43,7 +43,7 @@ const ManageEventCard = ({ event, onEdit, onDelete }) => {
           </div>
         </div>
 
-        {/* Action Buttons */}
+        
         <div className="pt-4 mt-auto grid grid-cols-2 gap-3">
           <button
             onClick={onEdit}

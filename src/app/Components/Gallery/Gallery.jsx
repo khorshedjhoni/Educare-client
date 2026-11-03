@@ -9,7 +9,7 @@ const Gallery = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Replace with your actual backend URL or environment variable (e.g. process.env.NEXT_PUBLIC_API_URL)
+   
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/gallery`)
       .then((res) => res.json())
       .then((data) => {
@@ -34,7 +34,7 @@ const Gallery = () => {
     <section className="py-16 bg-slate-900 text-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Heading */}
+        
         <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
             Community <span className="text-indigo-400">Gallery</span>
@@ -44,7 +44,7 @@ const Gallery = () => {
           </p>
         </div>
 
-        {/* Uniform Grid Layout (2 or 3 columns as per your rules) */}
+       
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {galleryItems.map((item) => (
             <GalleryCard key={item._id} item={item} />

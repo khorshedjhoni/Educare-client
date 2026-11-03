@@ -23,7 +23,7 @@ export default function JoinButton({ event }) {
     try {
       setJoining(true);
 
-      // 1. Get JWT token from Better Auth
+     
       const { data: tokenData, error } = await authClient.token();
 
       const token = tokenData?.token;

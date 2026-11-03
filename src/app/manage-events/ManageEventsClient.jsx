@@ -168,7 +168,7 @@ export default function ManageEventsClient() {
     <div className="min-h-screen bg-slate-900 py-12 px-4 sm:px-6 lg:px-8 text-slate-100">
       <div className="max-w-7xl mx-auto">
         
-        {/* Page Header */}
+       
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-12">
           <div className="space-y-2 text-center md:text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-medium">

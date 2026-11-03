@@ -21,7 +21,7 @@ const EventCard = ({ event }) => {
 
   return (
     <div className="bg-slate-800/50 border border-slate-700/80 rounded-2xl overflow-hidden shadow-xl hover:border-indigo-500/50 transition-all flex flex-col h-full group">
-      {/* Event Thumbnail */}
+      
       <div className="relative h-52 overflow-hidden bg-slate-900">
         <Image 
           src={event?.thumbnail || "https://images.unsplash.com/photo-1532012197267-da84d127e765"} 
@@ -35,7 +35,7 @@ const EventCard = ({ event }) => {
         </span>
       </div>
 
-      {/* Event Body */}
+   
       <div className="p-5 flex flex-col flex-grow space-y-3">
         <h3 className="text-xl font-bold text-white tracking-tight line-clamp-1 group-hover:text-indigo-400 transition">
           {event?.title}
@@ -45,7 +45,7 @@ const EventCard = ({ event }) => {
           {event?.description}
         </p>
 
-        {/* Metadata Information */}
+        
         <div className="pt-3 border-t border-slate-700/60 space-y-2 text-xs text-slate-400">
           <div className="flex items-center gap-2">
             <FaCalendarAlt className="text-indigo-400" />
@@ -59,7 +59,7 @@ const EventCard = ({ event }) => {
           </div>
         </div>
 
-        {/* Action Link */}
+       
         <div className="pt-2">
           <Link
             href={`/events/${event?._id}`}

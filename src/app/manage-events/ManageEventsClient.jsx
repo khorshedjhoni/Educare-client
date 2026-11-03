@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useSession } from "@/lib/auth-client";
+import { useSession, authClient } from "@/lib/auth-client"; // Added authClient import
 import { FaCog, FaPlus } from "react-icons/fa";
 import Link from "next/link";
 import toast from "react-hot-toast";
@@ -32,14 +32,26 @@ export default function ManageEventsClient() {
 
     const getEvents = async () => {
       try {
+        const { data: tokenData } = await authClient.token();
+        const token = tokenData?.token;
+
+      
+
         const res = await fetch(
-          `http://localhost:5000/events/user?email=${encodeURIComponent(email)}`
+          `http://localhost:5000/events/user?email=${encodeURIComponent(email)}`,
+          
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
+       
 
         const data = await res.json();
 
         if (res.ok) {
-          setEvents( data);
+          setEvents(data);
         } else {
           toast.error("Failed to load events.");
         }
@@ -53,15 +65,19 @@ export default function ManageEventsClient() {
     getEvents();
   }, [email, isPending, router]);
 
-
   const handleDelete = async (id) => {
-    // if (!confirm("Are you sure you want to delete this event?")) return;
-
     try {
+      // FIX: Retrieve token properly inside the function scope
+      const { data: tokenData } = await authClient.token();
+      const token = tokenData?.token;
+
       const res = await fetch(
         `http://localhost:5000/events/${id}?email=${encodeURIComponent(email)}`,
         {
           method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 
@@ -81,13 +97,11 @@ export default function ManageEventsClient() {
     }
   };
 
-
   const handleEditClick = (event) => {
     setSelectedEvent(event);
     setIsModalOpen(true);
   };
 
-  
   const handleUpdateSubmit = async (e) => {
     e.preventDefault();
 
@@ -104,12 +118,17 @@ export default function ManageEventsClient() {
     };
 
     try {
+      
+      const { data: tokenData } = await authClient.token();
+      const token = tokenData?.token;
+
       const res = await fetch(
         `http://localhost:5000/events/${selectedEvent._id}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(updatedData),
         }
@@ -144,6 +163,7 @@ export default function ManageEventsClient() {
       </div>
     );
   }
+
   return (
     <div className="min-h-screen bg-slate-900 py-12 px-4 sm:px-6 lg:px-8 text-slate-100">
       <div className="max-w-7xl mx-auto">
@@ -170,7 +190,6 @@ export default function ManageEventsClient() {
           </Link>
         </div>
 
-        
         {events.length === 0 ? (
           <div className="text-center py-20 bg-slate-800/40 border border-slate-800 rounded-3xl max-w-xl mx-auto space-y-4">
             <h3 className="text-xl font-bold text-white">No Events Created Yet</h3>
@@ -185,7 +204,6 @@ export default function ManageEventsClient() {
             </Link>
           </div>
         ) : (
-          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {events.map((event) => (
               <ManageEventCard
@@ -197,24 +215,22 @@ export default function ManageEventsClient() {
             ))}
           </div>
         )}
-
       </div>
 
-      
-       <Modal
-  isOpen={isModalOpen}
-  onClose={() => setIsModalOpen(false)}
-  title="Update Event Details"
->
-  {selectedEvent && (
-    <EditEventForm
-      key={selectedEvent._id}
-      event={selectedEvent}
-      onSubmit={handleUpdateSubmit}
-      onClose={() => setIsModalOpen(false)}
-    />
-  )}
-</Modal>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Update Event Details"
+      >
+        {selectedEvent && (
+          <EditEventForm
+            key={selectedEvent._id}
+            event={selectedEvent}
+            onSubmit={handleUpdateSubmit}
+            onClose={() => setIsModalOpen(false)}
+          />
+        )}
+      </Modal>
     </div>
   );
 }

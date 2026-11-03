@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useSession } from "@/lib/auth-client";
+import { authClient, useSession } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 import {
   FaCalendarAlt,
@@ -81,11 +81,13 @@ const CreateEventPage = () => {
         createdAt: new Date(),
         userEmail: session.user.email,
       };
-
+       const { data: tokenData } = await authClient.token();
+        const token = tokenData?.token;
       const response = await fetch("http://localhost:5000/events", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(eventData),
       });

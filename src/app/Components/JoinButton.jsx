@@ -2,30 +2,40 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useSession } from "@/lib/auth-client";
+import { useSession, authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 import { FaCheckCircle } from "react-icons/fa";
 
 export default function JoinButton({ event }) {
   const router = useRouter();
   const { data: session, isPending } = useSession();
+
   const [joining, setJoining] = useState(false);
   const [hasJoined, setHasJoined] = useState(false);
 
   const handleJoinEvent = async () => {
-    // Check if user is logged in before allowing them to join
     if (!session?.user?.email) {
       toast.error("You must be logged in to join an event.");
       router.push("/sign-in");
       return;
     }
 
-    setJoining(true);
+    try {
+      setJoining(true);
 
-   
+      // 1. Get JWT token from Better Auth
+      const { data: tokenData, error } = await authClient.token();
+
+      const token = tokenData?.token;
+
+      if (error || !token) {
+        toast.error("Authentication failed. Please sign in again.");
+        return;
+      }
+
+  
       const payload = {
         eventId: event._id,
-        userEmail: session.user.email,
         userName: session.user.name || "Attendee",
         eventTitle: event.title,
         eventDate: event.date,
@@ -33,28 +43,36 @@ export default function JoinButton({ event }) {
         thumbnail: event.thumbnail,
       };
 
+  
       const res = await fetch("http://localhost:5000/joined-events", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify(payload),
       });
 
       const data = await res.json();
 
       if (res.ok && data.success) {
-        toast.success("Successfully joined the event!");
+        toast.success(data.message || "Successfully joined the event!");
         setHasJoined(true);
       } else {
         toast.error(data.message || "Failed to join event.");
       }
-   
+    } catch (error) {
+      console.error("Join event error:", error);
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setJoining(false);
+    }
   };
 
   if (isPending) {
     return null;
   }
 
-  // Show success badge if already joined in this session
   if (hasJoined) {
     return (
       <div className="inline-flex items-center gap-2 bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 px-6 py-3.5 rounded-xl font-semibold text-sm">

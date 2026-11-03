@@ -24,18 +24,17 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
+      suppressHydrationWarning // <-- ADD THIS LINE HERE
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased bg-slate-900 text-slate-100`}
     >
       <body className="min-h-full flex flex-col">
         <ThemeProvider attribute="class" defaultTheme="dark">
-        
-        <Toaster position="top-center" />
-        <Navbar />
-        {children}
-        <Footer />
+          <Toaster position="top-center" />
+          <Navbar />
+          {children}
+          <Footer />
         </ThemeProvider>
-        </body>
-         
+      </body>
     </html>
   );
 }

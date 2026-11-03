@@ -1,15 +1,19 @@
+import { Suspense } from "react";
+import { connection } from "next/server";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
 import JoinedEventsClient from "./JoinedEventsClient";
 
-export default async function JoinedEventsPage() {
+const JoinedEventsContent = async () => {
+    await connection();
   let joinedEvents = [];
 
   try {
-    // Get the current request headers
+    
+    
+
     const requestHeaders = await headers();
 
-    // Get JWT from Better Auth on the server
     const tokenData = await auth.api.getToken({
       headers: requestHeaders,
     });
@@ -17,12 +21,15 @@ export default async function JoinedEventsPage() {
     const token = tokenData?.token;
 
     if (token) {
-      const response = await fetch("http://localhost:5000/joined-events", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        cache: "no-store",
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/joined-events`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          cache: "no-store",
+        }
+      );
 
       if (response.ok) {
         joinedEvents = await response.json();
@@ -35,4 +42,20 @@ export default async function JoinedEventsPage() {
   }
 
   return <JoinedEventsClient initialEvents={joinedEvents} />;
-}
+};
+
+const JoinedEventsPage = () => {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-slate-900 flex items-center justify-center text-white">
+          Loading joined events...
+        </div>
+      }
+    >
+      <JoinedEventsContent />
+    </Suspense>
+  );
+};
+
+export default JoinedEventsPage;

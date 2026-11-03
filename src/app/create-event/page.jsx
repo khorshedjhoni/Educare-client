@@ -20,12 +20,11 @@ const CreateEventPage = () => {
   const [loading, setLoading] = useState(false);
   const [todayDate, setTodayDate] = useState("");
 
-  // Get today's local date
   useEffect(() => {
     const today = new Date();
 
     const localDate = `${today.getFullYear()}-${String(
-      today.getMonth() + 1
+      today.getMonth() + 1,
     ).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
 
     setTodayDate(localDate);
@@ -81,9 +80,9 @@ const CreateEventPage = () => {
         createdAt: new Date(),
         userEmail: session.user.email,
       };
-       const { data: tokenData } = await authClient.token();
-        const token = tokenData?.token;
-      const response = await fetch("http://localhost:5000/events", {
+      const { data: tokenData } = await authClient.token();
+      const token = tokenData?.token;
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/events`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -91,7 +90,7 @@ const CreateEventPage = () => {
         },
         body: JSON.stringify(eventData),
       });
-
+      
       const result = await response.json();
 
       if (response.ok && result.success) {
@@ -148,8 +147,7 @@ const CreateEventPage = () => {
           </div>
 
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
-            Create New Community{" "}
-            <span className="text-indigo-400">Event</span>
+            Create New Community <span className="text-indigo-400">Event</span>
           </h1>
 
           <p className="text-slate-300 text-sm">

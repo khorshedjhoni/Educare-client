@@ -44,7 +44,7 @@ export default function JoinButton({ event }) {
       };
 
   
-      const res = await fetch("http://localhost:5000/joined-events", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/joined-events`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

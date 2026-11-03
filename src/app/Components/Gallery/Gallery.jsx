@@ -10,7 +10,7 @@ const Gallery = () => {
 
   useEffect(() => {
     // Replace with your actual backend URL or environment variable (e.g. process.env.NEXT_PUBLIC_API_URL)
-    fetch("http://localhost:5000/gallery")
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/gallery`)
       .then((res) => res.json())
       .then((data) => {
         setGalleryItems(data);

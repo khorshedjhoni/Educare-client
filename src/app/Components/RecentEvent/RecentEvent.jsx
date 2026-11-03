@@ -2,12 +2,15 @@ import React from "react";
 import { FaCalendarAlt, FaArrowRight } from "react-icons/fa";
 import Link from "next/link";
 import EventCard from "../EventCard";
+import { connection } from "next/server";
 
 const RecentEvent = async () => {
+    await connection();
   let events = [];
 
   try {
-    const res = await fetch("http://localhost:5000/events/recent", {
+    
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/events/recent`, {
       cache: "no-store",
     });
     

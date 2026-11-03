@@ -38,7 +38,7 @@ export default function ManageEventsClient() {
       
 
         const res = await fetch(
-          `http://localhost:5000/events/user?email=${encodeURIComponent(email)}`,
+`${process.env.NEXT_PUBLIC_API_URL}/events/user?email=${encodeURIComponent(email)}`,
           
           {
             headers: {
@@ -72,7 +72,7 @@ export default function ManageEventsClient() {
       const token = tokenData?.token;
 
       const res = await fetch(
-        `http://localhost:5000/events/${id}?email=${encodeURIComponent(email)}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/events/${id}?email=${encodeURIComponent(email)}`,
         {
           method: "DELETE",
           headers: {
@@ -123,7 +123,7 @@ export default function ManageEventsClient() {
       const token = tokenData?.token;
 
       const res = await fetch(
-        `http://localhost:5000/events/${selectedEvent._id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/events/${selectedEvent._id}`,
         {
           method: "PUT",
           headers: {
